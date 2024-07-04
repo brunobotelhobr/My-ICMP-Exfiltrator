@@ -58,7 +58,7 @@ def icml_mon(pkt):
             payload = icmp_suspicious
             print(
                 log_timestamp()
-                + " Suspicious payload from"
+                + " Suspicious payload from "
                 + colored(src, "red")
                 + " with size "
                 + colored(size, "red")
