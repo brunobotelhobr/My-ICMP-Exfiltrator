@@ -5,7 +5,7 @@
 # pip install termcolor
 ############################################################
 
-from scapy.layers.inet import ICMP
+from scapy.layers.inet import ICMP, IP
 from scapy.all import conf
 from scapy.all import sniff
 from termcolor import colored
@@ -53,16 +53,18 @@ def icml_mon(pkt):
                 + colored(str(len(icmp_suspicious)), "green")
             )
         else:
-            if len(icmp_suspicious):
-                print(
-                    log_timestamp()
-                    + " Suspicious payload from"
-                    + colored(pkt[ICMP].src, "red")
-                    + " with size "
-                    + colored(str(len(icmp_suspicious)), "red")
-                    + " found as: "
-                    + colored(icmp_suspicious, "red")
-                )
+            src = pkt[IP].src
+            size = len(icmp_suspicious)
+            payload = icmp_suspicious
+            print(
+                log_timestamp()
+                + " Suspicious payload from"
+                + colored(src, "red")
+                + " with size "
+                + colored(size, "red")
+                + " found as: "
+                + colored(payload, "red")
+            )
 
 
 def main():
